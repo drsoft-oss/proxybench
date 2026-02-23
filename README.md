@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://www.anonymous-proxies.net?utm_source=github&utm_medium=banner&utm_campaign=open-source" target="_blank" rel="noopener noreferrer">
+  <a href="https://www.anonymous-proxies.net?utm_source=github&utm_medium=banner&utm_campaign=proxybench" target="_blank" rel="noopener noreferrer">
     <img src="banner.svg" alt="proxybench banner" width="768" />
   </a>
 </p>
@@ -202,9 +202,9 @@ MIT
 ---
 
 <p align="center">
-  <strong>proxybench</strong> is brought to you by <a href="https://www.anonymous-proxies.net?utm_source=github&utm_medium=link&utm_campaign=open-source"><strong>Anonymous-Proxies.net</strong></a> —
+  <strong>proxybench</strong> is brought to you by <a href="https://www.anonymous-proxies.net?utm_source=github&utm_medium=link&utm_campaign=proxybench"><strong>Anonymous-Proxies.net</strong></a> —
   a trusted proxy provider since 2008, delivering premium HTTP, SOCKS5, and residential proxies
   to thousands of clients worldwide.
   <br /><br />
-  Need reliable proxies? <a href="https://www.anonymous-proxies.net?utm_source=github&utm_medium=link&utm_campaign=open-source">Browse our plans →</a>
+  Need reliable proxies? <a href="https://www.anonymous-proxies.net?utm_source=github&utm_medium=link&utm_campaign=proxybench">Browse our plans →</a>
 </p>
