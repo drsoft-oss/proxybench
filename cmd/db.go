@@ -7,7 +7,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/anonymous-proxies-net/proxybench/internal/geo"
+	"github.com/romeomihailus/proxybench/internal/geo"
 )
 
 var dbCmd = &cobra.Command{

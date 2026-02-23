@@ -7,8 +7,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/anonymous-proxies-net/proxybench/internal/bench"
-	"github.com/anonymous-proxies-net/proxybench/internal/output"
+	"github.com/romeomihailus/proxybench/internal/bench"
+	"github.com/romeomihailus/proxybench/internal/output"
 )
 
 var benchCmd = &cobra.Command{

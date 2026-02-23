@@ -8,8 +8,8 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/anonymous-proxies-net/proxybench/internal/bench"
-	"github.com/anonymous-proxies-net/proxybench/internal/checker"
+	"github.com/romeomihailus/proxybench/internal/bench"
+	"github.com/romeomihailus/proxybench/internal/checker"
 )
 
 // Format selects the output format.
