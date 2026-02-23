@@ -25,13 +25,13 @@
 ## Installation
 
 ```bash
-go install github.com/anonymous-proxies-net/proxybench@latest
+go install github.com/romeomihailus/proxybench@latest
 ```
 
 Or build from source:
 
 ```bash
-git clone https://github.com/anonymous-proxies-net/proxybench
+git clone https://github.com/romeomihailus/proxybench
 cd proxybench
 go build -o proxybench .
 ```
