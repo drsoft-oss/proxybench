@@ -8,6 +8,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// version is set at build time via -ldflags "-X github.com/romeomihailus/proxybench/cmd.version=x.y.z"
+var version = "dev"
+
 var rootCmd = &cobra.Command{
 	Use:   "proxybench",
 	Short: "Proxy checker and health monitor",
@@ -19,7 +22,7 @@ Features:
   • Geo-location lookup via local IP database
   • JSON and CSV output for pipeline integration
 `,
-	Version: "0.1.0",
+	Version: version,
 }
 
 // Execute is the entry point called by main.
@@ -31,6 +34,7 @@ func Execute() {
 }
 
 func init() {
+	rootCmd.Version = version
 	rootCmd.AddCommand(checkCmd)
 	rootCmd.AddCommand(benchCmd)
 	rootCmd.AddCommand(dbCmd)

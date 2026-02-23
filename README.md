@@ -24,11 +24,29 @@
 
 ## Installation
 
+### Download a pre-built binary (recommended)
+
+Download the latest release for your platform from the
+[Releases page](https://github.com/romeomihailus/proxybench/releases/latest).
+
+| Platform | File |
+|---|---|
+| Linux x86-64 | `proxybench_linux_amd64.tar.gz` |
+| Linux ARM64 | `proxybench_linux_arm64.tar.gz` |
+| macOS Intel | `proxybench_darwin_amd64.tar.gz` |
+| macOS Apple Silicon | `proxybench_darwin_arm64.tar.gz` |
+| Windows x86-64 | `proxybench_windows_amd64.zip` |
+
+**Linux / macOS one-liner:**
+
 ```bash
-go install github.com/romeomihailus/proxybench@latest
+curl -sSL https://github.com/romeomihailus/proxybench/releases/latest/download/proxybench_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz \
+  | tar -xz proxybench && sudo mv proxybench /usr/local/bin/
 ```
 
-Or build from source:
+### Build from source
+
+Requires Go 1.21+:
 
 ```bash
 git clone https://github.com/romeomihailus/proxybench
