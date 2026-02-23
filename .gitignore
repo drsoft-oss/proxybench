@@ -27,3 +27,7 @@ data/ip2country.csv.tmp
 .vscode/
 *.swp
 *.swo
+
+# Node (semantic-release tooling)
+node_modules/
+package-lock.json
