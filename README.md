@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="banner.svg" alt="proxybench banner" width="768" />
+</p>
+
 # proxybench
 
 > Proxy checker and health monitor CLI — validate and benchmark HTTP, SOCKS5, and Shadowsocks proxies.
@@ -174,3 +178,13 @@ proxybench/
 ## License
 
 MIT
+
+---
+
+<p align="center">
+  <strong>proxybench</strong> is brought to you by <a href="https://www.anonymous-proxies.net"><strong>Anonymous-Proxies.net</strong></a> —
+  a trusted proxy provider since 2008, delivering premium HTTP, SOCKS5, and residential proxies
+  to thousands of clients worldwide.
+  <br /><br />
+  Need reliable proxies? <a href="https://www.anonymous-proxies.net">Browse our plans →</a>
+</p>
