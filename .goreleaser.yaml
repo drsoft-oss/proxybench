@@ -29,7 +29,7 @@ builds:
 
 archives:
   - id: proxybench
-    builds:
+    ids:
       - proxybench
     name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
     format_overrides:
