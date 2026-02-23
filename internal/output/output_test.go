@@ -116,7 +116,7 @@ func TestWriteCheckResults_Table(t *testing.T) {
 
 func TestWriteBenchResults_JSON(t *testing.T) {
 	var buf bytes.Buffer
-	err := WriteBenchResults(&buf, makeBenchResults(), FormatJSON)
+	err := WriteBenchResults(&buf, makeBenchResults(), nil, FormatJSON)
 	if err != nil {
 		t.Fatalf("WriteBenchResults JSON: %v", err)
 	}
@@ -133,7 +133,7 @@ func TestWriteBenchResults_JSON(t *testing.T) {
 
 func TestWriteBenchResults_CSV(t *testing.T) {
 	var buf bytes.Buffer
-	err := WriteBenchResults(&buf, makeBenchResults(), FormatCSV)
+	err := WriteBenchResults(&buf, makeBenchResults(), nil, FormatCSV)
 	if err != nil {
 		t.Fatalf("WriteBenchResults CSV: %v", err)
 	}
@@ -151,7 +151,7 @@ func TestWriteBenchResults_CSV(t *testing.T) {
 
 func TestWriteBenchResults_Table(t *testing.T) {
 	var buf bytes.Buffer
-	err := WriteBenchResults(&buf, makeBenchResults(), FormatTable)
+	err := WriteBenchResults(&buf, makeBenchResults(), nil, FormatTable)
 	if err != nil {
 		t.Fatalf("WriteBenchResults Table: %v", err)
 	}

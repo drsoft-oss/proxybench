@@ -8,6 +8,7 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/romeomihailus/proxybench/internal/bench"
+	"github.com/romeomihailus/proxybench/internal/geo"
 	"github.com/romeomihailus/proxybench/internal/output"
 )
 
@@ -30,6 +31,8 @@ var (
 	benchTestURL     string
 	benchPayloadURL  string
 	benchConcurrency int
+	benchGeo         bool
+	benchDBPath      string
 )
 
 func init() {
@@ -39,6 +42,8 @@ func init() {
 	benchCmd.Flags().StringVar(&benchTestURL, "test-url", "http://www.google.com", "URL to hit for latency measurement")
 	benchCmd.Flags().StringVar(&benchPayloadURL, "payload-url", "", "URL of a large file for throughput measurement (optional)")
 	benchCmd.Flags().IntVarP(&benchConcurrency, "concurrency", "c", 5, "max parallel proxies under test")
+	benchCmd.Flags().BoolVar(&benchGeo, "geo", false, "append country info (requires IP database)")
+	benchCmd.Flags().StringVar(&benchDBPath, "db", "", "path to ip2country.csv (default: auto-detect)")
 }
 
 func runBench(cmd *cobra.Command, args []string) error {
@@ -58,5 +63,29 @@ func runBench(cmd *cobra.Command, args []string) error {
 	fmt.Fprintf(os.Stderr, "Benchmarking %d proxies (%d samples each)…\n", len(addresses), benchSamples)
 	results := bench.RunMany(addresses, opts)
 
-	return output.WriteBenchResults(os.Stdout, results, output.Format(benchFormat))
+	var countries []string
+	if benchGeo {
+		db := geo.DefaultDB
+		if benchDBPath != "" {
+			if err := db.LoadFile(benchDBPath); err != nil {
+				fmt.Fprintf(os.Stderr, "warn: geo DB load failed: %v\n", err)
+			}
+		} else {
+			if err := db.Load(); err != nil {
+				fmt.Fprintf(os.Stderr, "warn: geo DB not found at %s\n  run `proxybench db update` to download it\n", geo.DefaultDBPath())
+			}
+		}
+		countries = make([]string, len(results))
+		for i, r := range results {
+			host := extractHost(r.Address)
+			if host != "" {
+				cc, cn := db.Lookup(host)
+				if cc != "--" {
+					countries[i] = cc + " " + cn
+				}
+			}
+		}
+	}
+
+	return output.WriteBenchResults(os.Stdout, results, countries, output.Format(benchFormat))
 }

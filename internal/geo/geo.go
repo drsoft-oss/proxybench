@@ -10,7 +10,6 @@ import (
 	"net"
 	"os"
 	"path/filepath"
-	"runtime"
 	"sort"
 	"strconv"
 	"strings"
@@ -35,20 +34,22 @@ type DB struct {
 // DefaultDB is the package-level singleton, loaded lazily.
 var DefaultDB = &DB{}
 
-// DefaultDBPath returns the canonical path to the bundled IP database file.
+// DefaultDBPath returns the canonical path to the IP database file.
+// Search order:
+//  1. $XDG_CONFIG_HOME/proxybench/ip2country.csv  (or OS equivalent via os.UserConfigDir)
+//  2. directory of the running binary / data/ip2country.csv
+//  3. ./data/ip2country.csv  (last-resort fallback)
 func DefaultDBPath() string {
-	// Walk up from this file's package dir to find the project root's data/ folder.
-	_, file, _, ok := runtime.Caller(0)
-	if ok {
-		root := filepath.Join(filepath.Dir(file), "..", "..", "data")
-		p := filepath.Join(root, "ip2country.csv")
-		if abs, err := filepath.Abs(p); err == nil {
-			return abs
-		}
+	// 1. User config directory — writable by the user, survives upgrades.
+	if dir, err := os.UserConfigDir(); err == nil {
+		return filepath.Join(dir, "proxybench", "ip2country.csv")
 	}
-	// Fallback: same dir as the binary.
-	exe, _ := os.Executable()
-	return filepath.Join(filepath.Dir(exe), "data", "ip2country.csv")
+	// 2. Next to the binary.
+	if exe, err := os.Executable(); err == nil {
+		return filepath.Join(filepath.Dir(exe), "data", "ip2country.csv")
+	}
+	// 3. Relative fallback.
+	return filepath.Join("data", "ip2country.csv")
 }
 
 // Load loads the database from the default path.

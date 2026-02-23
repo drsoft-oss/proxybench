@@ -99,17 +99,32 @@ func WriteCheckResults(w io.Writer, results []checker.Result, countries []string
 
 // ---- Bench results ----------------------------------------------------------
 
+// benchRow is the serialisable form of bench.Stats with an optional country field.
+type benchRow struct {
+	bench.Stats
+	Country string `json:"country,omitempty"`
+}
+
 // WriteBenchResults writes benchmark stats in the requested format.
-func WriteBenchResults(w io.Writer, results []bench.Stats, format Format) error {
+// countries is an optional parallel slice of geo strings (may be nil or shorter than results).
+func WriteBenchResults(w io.Writer, results []bench.Stats, countries []string, format Format) error {
+	rows := make([]benchRow, len(results))
+	for i, r := range results {
+		rows[i] = benchRow{Stats: r}
+		if i < len(countries) {
+			rows[i].Country = countries[i]
+		}
+	}
+
 	switch format {
 	case FormatJSON:
 		enc := json.NewEncoder(w)
 		enc.SetIndent("", "  ")
-		return enc.Encode(results)
+		return enc.Encode(rows)
 	case FormatCSV:
 		cw := csv.NewWriter(w)
-		cw.Write([]string{"address", "samples", "successful", "min_ms", "max_ms", "avg_ms", "p50_ms", "p95_ms", "loss_rate", "speed_bps"}) //nolint:errcheck
-		for _, r := range results {
+		cw.Write([]string{"address", "samples", "successful", "min_ms", "max_ms", "avg_ms", "p50_ms", "p95_ms", "loss_rate", "speed_bps", "country"}) //nolint:errcheck
+		for _, r := range rows {
 			cw.Write([]string{
 				r.Address,
 				strconv.Itoa(r.Samples),
@@ -121,22 +136,40 @@ func WriteBenchResults(w io.Writer, results []bench.Stats, format Format) error 
 				strconv.FormatInt(r.P95MS, 10),
 				strconv.FormatFloat(r.LossRate, 'f', 4, 64),
 				strconv.FormatInt(r.SpeedBps, 10),
+				r.Country,
 			}) //nolint:errcheck
 		}
 		cw.Flush()
 		return cw.Error()
 	default: // table
-		fmt.Fprintf(w, "%-45s %4s %4s %7s %7s %7s %7s %7s %8s\n",
-			"ADDRESS", "OK", "ERR", "MIN", "AVG", "P50", "P95", "MAX", "LOSS%")
-		fmt.Fprintf(w, "%s\n", repeat('-', 115))
-		for _, r := range results {
+		withGeo := len(countries) > 0
+		if withGeo {
+			fmt.Fprintf(w, "%-45s %4s %4s %7s %7s %7s %7s %7s %8s  %s\n",
+				"ADDRESS", "OK", "ERR", "MIN", "AVG", "P50", "P95", "MAX", "LOSS%", "COUNTRY")
+			fmt.Fprintf(w, "%s\n", repeat('-', 133))
+		} else {
+			fmt.Fprintf(w, "%-45s %4s %4s %7s %7s %7s %7s %7s %8s\n",
+				"ADDRESS", "OK", "ERR", "MIN", "AVG", "P50", "P95", "MAX", "LOSS%")
+			fmt.Fprintf(w, "%s\n", repeat('-', 115))
+		}
+		for _, r := range rows {
 			failed := r.Samples - r.Successful
-			fmt.Fprintf(w, "%-45s %4d %4d %7d %7d %7d %7d %7d %7.1f%%\n",
-				truncate(r.Address, 45),
-				r.Successful, failed,
-				r.MinMS, r.AvgMS, r.P50MS, r.P95MS, r.MaxMS,
-				r.LossRate*100,
-			)
+			if withGeo {
+				fmt.Fprintf(w, "%-45s %4d %4d %7d %7d %7d %7d %7d %7.1f%%  %s\n",
+					truncate(r.Address, 45),
+					r.Successful, failed,
+					r.MinMS, r.AvgMS, r.P50MS, r.P95MS, r.MaxMS,
+					r.LossRate*100,
+					r.Country,
+				)
+			} else {
+				fmt.Fprintf(w, "%-45s %4d %4d %7d %7d %7d %7d %7d %7.1f%%\n",
+					truncate(r.Address, 45),
+					r.Successful, failed,
+					r.MinMS, r.AvgMS, r.P50MS, r.P95MS, r.MaxMS,
+					r.LossRate*100,
+				)
+			}
 		}
 		return nil
 	}

@@ -69,7 +69,9 @@ func runCheck(cmd *cobra.Command, args []string) error {
 				fmt.Fprintf(os.Stderr, "warn: geo DB load failed: %v\n", err)
 			}
 		} else {
-			db.Load() //nolint:errcheck — best effort
+			if err := db.Load(); err != nil {
+				fmt.Fprintf(os.Stderr, "warn: geo DB not found at %s\n  run `proxybench db update` to download it\n", geo.DefaultDBPath())
+			}
 		}
 		countries = make([]string, len(results))
 		for i, r := range results {
