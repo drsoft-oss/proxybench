@@ -1,5 +1,7 @@
 <p align="center">
-  <img src="banner.svg" alt="proxybench banner" width="768" />
+  <a href="https://www.anonymous-proxies.net" target="_blank" rel="noopener noreferrer">
+    <img src="banner.svg" alt="proxybench banner" width="768" />
+  </a>
 </p>
 
 # proxybench
