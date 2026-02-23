@@ -1,0 +1,29 @@
+# Binaries
+proxybench
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Dependency directory (uncomment if vendoring)
+# vendor/
+
+# Go workspace file
+go.work
+go.work.sum
+
+# IP database (downloaded, not committed — use `proxybench db update`)
+data/ip2country.csv.tmp
+
+# Editor
+.idea/
+.vscode/
+*.swp
+*.swo

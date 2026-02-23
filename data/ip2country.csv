@@ -1,0 +1,7 @@
+# proxybench IP-to-country database
+# Format: ip_from,ip_to,country_code,country_name
+# This is a minimal seed file. Run `proxybench db update` to download the full database.
+# Source: db-ip.com (CC BY 4.0)
+16777216,16777471,AU,Australia
+16777472,16778239,CN,China
+134744072,134744072,US,United States
