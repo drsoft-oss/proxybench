@@ -22,6 +22,9 @@ go.work.sum
 # IP database (downloaded, not committed — use `proxybench db update`)
 data/ip2country.csv.tmp
 
+# Dist 
+dist/
+
 # Editor
 .idea/
 .vscode/
