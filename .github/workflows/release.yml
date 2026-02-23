@@ -1,34 +1,32 @@
 name: Release
-
 on:
   push:
-    tags:
-      - "v*"
+    branches:
+      - main
 
 permissions:
-  contents: write
+  contents: write 
+  pull-requests: write
 
 jobs:
   release:
-    name: GoReleaser
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0   # full history for changelog
+          fetch-depth: 0 
 
-      - name: Set up Go
-        uses: actions/setup-go@v5
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          go-version-file: go.mod
-          cache: true
+          node-version: 'lts/*'
+          cache: 'npm'
 
-      - name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@v6
-        with:
-          distribution: goreleaser
-          version: "~> v2"
-          args: release --clean
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
