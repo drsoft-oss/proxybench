@@ -21,8 +21,3 @@ lint: ## Run golangci-lint (requires golangci-lint installed)
 
 clean: ## Remove build artifacts
 	rm -f $(BINARY)
-
-release: ## Bump version via semantic-release, tag, and push (triggers GoReleaser CI)
-	@which node > /dev/null 2>&1 || (echo "Error: Node.js is required — https://nodejs.org" && exit 1)
-	@test -d node_modules || npm install --silent
-	npx semantic-release
