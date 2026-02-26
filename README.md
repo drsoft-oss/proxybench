@@ -27,7 +27,7 @@
 ### Download a pre-built binary (recommended)
 
 Download the latest release for your platform from the
-[Releases page](https://github.com/romeomihailus/proxybench/releases/latest).
+[Releases page](https://github.com/drsoft-oss/proxybench/releases/latest).
 
 | Platform | File |
 |---|---|
@@ -40,7 +40,7 @@ Download the latest release for your platform from the
 **Linux / macOS one-liner:**
 
 ```bash
-curl -sSL https://github.com/romeomihailus/proxybench/releases/latest/download/proxybench_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz \
+curl -sSL https://github.com/drsoft-oss/proxybench/releases/latest/download/proxybench_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz \
   | tar -xz proxybench && sudo mv proxybench /usr/local/bin/
 ```
 
@@ -49,7 +49,7 @@ curl -sSL https://github.com/romeomihailus/proxybench/releases/latest/download/p
 Requires Go 1.21+:
 
 ```bash
-git clone https://github.com/romeomihailus/proxybench
+git clone https://github.com/drsoft-oss/proxybench
 cd proxybench
 go build -o proxybench .
 ```

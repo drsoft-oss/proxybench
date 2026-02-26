@@ -1,6 +1,6 @@
 package main
 
-import "github.com/romeomihailus/proxybench/cmd"
+import "github.com/drsoft-oss/proxybench/cmd"
 
 func main() {
 	cmd.Execute()

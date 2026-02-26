@@ -1,4 +1,4 @@
-module github.com/romeomihailus/proxybench
+module github.com/drsoft-oss/proxybench
 
 go 1.25.0
 

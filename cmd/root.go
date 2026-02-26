@@ -8,7 +8,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// version is set at build time via -ldflags "-X github.com/romeomihailus/proxybench/cmd.version=x.y.z"
+// version is set at build time via -ldflags "-X github.com/drsoft-oss/proxybench/cmd.version=x.y.z"
 var version = "dev"
 
 var rootCmd = &cobra.Command{

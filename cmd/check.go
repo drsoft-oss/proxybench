@@ -9,9 +9,9 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/romeomihailus/proxybench/internal/checker"
-	"github.com/romeomihailus/proxybench/internal/geo"
-	"github.com/romeomihailus/proxybench/internal/output"
+	"github.com/drsoft-oss/proxybench/internal/checker"
+	"github.com/drsoft-oss/proxybench/internal/geo"
+	"github.com/drsoft-oss/proxybench/internal/output"
 )
 
 var checkCmd = &cobra.Command{

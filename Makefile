@@ -1,6 +1,6 @@
 BINARY  := proxybench
 VERSION ?= dev
-LDFLAGS := -ldflags "-s -w -X github.com/romeomihailus/proxybench/cmd.version=$(VERSION)"
+LDFLAGS := -ldflags "-s -w -X github.com/drsoft-oss/proxybench/cmd.version=$(VERSION)"
 
 .DEFAULT_GOAL := help
 
