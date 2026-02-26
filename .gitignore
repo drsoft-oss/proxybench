@@ -28,6 +28,7 @@ dist/
 # Editor
 .idea/
 .vscode/
+.history/
 *.swp
 *.swo
 
